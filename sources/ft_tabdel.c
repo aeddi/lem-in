@@ -10,18 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 
-void	ft_tabdel(char ***tab)
+char	**ft_tabdel(char **tab)
 {
 	size_t	i;
 
 	i = 0;
-	while ((*tab)[i])
+	while (tab[i])
 	{
-		free((*tab)[i]);
+		free(tab[i]);
 		i++;
 	}
-	free(**tab);
-	**tab = NULL;
+	free(tab);
+	return (NULL);
 }

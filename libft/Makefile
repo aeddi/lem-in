@@ -1,4 +1,4 @@
-# **************************************************************************** #
+ #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
@@ -79,7 +79,6 @@ SRCS			=	ft_memset.c			\
 					get_next_line.c		\
 					get_next_line_mfd.c	\
 					ft_abs.c			\
-					ft_tabdel.c			\
 					ft_tablen.c			\
 					dlst_new.c			\
 					dlst_add_head.c		\

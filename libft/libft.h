@@ -103,7 +103,6 @@ char		*ft_revstr(char *s);
 int			get_next_line_mfd(int const fd, char **line);
 int			get_next_line(int const fd, char **line);
 long int	ft_abs(long int i);
-void		ft_tabdel(char ***tab);
 size_t		ft_tablen(char **tab);
 int			ft_strcount(const char *s1, const char *s2);
 char		*ft_strreplace(char *s1, char *old, char *new);

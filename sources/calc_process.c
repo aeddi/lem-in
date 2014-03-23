@@ -4,22 +4,24 @@
 void	display_pipe(t_graph *root)
 {
 	size_t	i;
+	t_graph	*tmp;
 
 	i = 0;
-	while (root)
+	tmp = root;
+	while (tmp)
 	{
-		while (root->tab[i])
+		while (tmp->tab[i])
 		{
-			if (root->tab[i]->taken == 0)
+			if (tmp->tab[i]->taken == 0)
 			{
-				ft_putstr(root->name);
+				ft_putstr(tmp->name);
 				ft_putchar('-');
-				ft_putendl(root->tab[i]->name);
+				ft_putendl(tmp->tab[i]->name);
 			}
 			i++;
 		}
-		root->taken = 1;
-		root = root->list;
+		tmp->taken = 1;
+		tmp = tmp->list;
 	}
 }
 
@@ -32,13 +34,20 @@ void	display_map(t_graph *root, size_t f_nb)
 	tmp = root;
 	while (tmp)
 	{
+		if (tmp->type == START)
+			ft_putendl("##start");
+		if (tmp->type == END)
+			ft_putendl("##end");
 		ft_putstr(tmp->name);
+		ft_putchar(' ');
 		ft_putnbr(tmp->x_coor);
+		ft_putchar(' ');
 		ft_putnbr(tmp->y_coor);
 		ft_putchar('\n');
 		tmp = tmp->list;
 	}
 	display_pipe(root);
+	ft_putchar('\n');
 }
 
 void	display_run(size_t f_n, char *room)

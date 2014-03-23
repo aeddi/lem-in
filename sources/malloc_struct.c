@@ -29,22 +29,23 @@ size_t	tabsize(t_graph **tab)
 	return (i);
 }
 
-t_graph	**tabadd(t_graph **tab, t_graph *room)
+void	tabadd(t_graph *tab, t_graph *entry)
 {
 	t_graph	**new;
 	size_t	i;
 
 	i = 0;
-	new = (t_graph **)malloc(sizeof(t_graph *) * (tabsize(tab) + 2));
-	if (tab)
+	new = (t_graph **)malloc(sizeof(t_graph *) * (tabsize(tab->tab) + 2));
+	if (tab->tab)
 	{
-		while (tab[i])
+		while (tab->tab[i])
 		{
-			new[i] = tab[i];
+			new[i] = tab->tab[i];
 			i++;
 		}
+		free(tab->tab);
 	}
-	tab[i] = room;
-	tab[i + 1] = NULL;
-	return (new);
+	new[i] = entry;
+	new[i + 1] = NULL;
+	tab->tab = new;;
 }

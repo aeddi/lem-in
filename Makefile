@@ -29,8 +29,8 @@ SRCS			=	main.c						\
 					free_struct.c				\
 					malloc_struct.c				\
 					parse_entry.c				\
-					read_line.c
-
+					read_line.c					\
+					ft_tabdel.c
 
 all				:	$(NAME)
 

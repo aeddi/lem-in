@@ -33,7 +33,8 @@ void	parse_entry(t_graph **root);
 void	calc_process(t_graph *root, size_t f_nb, size_t i);
 void	free_graph(t_graph *root);
 t_graph	*new_node(t_node type, char *name, long long x_coor, long long y_coor);
-t_graph	**tabadd(t_graph **tab, t_graph *room);
+void	tabadd(t_graph *tab, t_graph *entry);
 size_t	tabsize(t_graph **tab);
+char	**ft_tabdel(char **tab);
 
 #endif /* !LEM_IN_H */

@@ -22,36 +22,36 @@ t_bool	check_room(t_graph *root)
 	return (FALSE);
 }
 
-t_graph	*parse_room(char *save)
+t_graph	*parse_room(char **save)
 {
 	t_node	stat;
 	t_graph	*ret;
 	char	**sp;
 
-	read_line(&save, 0, &stat);
-	if (save)
+	read_line(save, 0, &stat);
+	if (*save)
 	{
-		sp = ft_strsplit(save, ' ');
+		sp = ft_strsplit(*save, ' ');
 		if (ft_tablen(sp) != 3 || check_num(sp[1]) == FALSE
-			|| check_num(sp[2]) == FALSE)
+			|| check_num(sp[2]) == FALSE || ft_strchr(sp[0], '-'))
 		{
-			ft_tabdel(&sp);
+			sp = ft_tabdel(sp);
 			return (NULL);
 		}
 		ret = new_node(stat, ft_strdup(sp[0]), ft_atoi(sp[1]), ft_atoi(sp[2]));
-		ft_tabdel(&sp);
-		free(save);
+		sp = ft_tabdel(sp);
+		ft_strdel(save);
 		return (ret);
 	}
 	return (NULL);
 }
 
-t_bool	connect_room(t_graph *root, char *room1, char *room2)
+t_bool	connect_room(t_graph **root, char *room1, char *room2)
 {
 	t_graph	*tmp1;
 	t_graph	*tmp2;
 
-	tmp1 = tmp2 = root;
+	tmp1 = tmp2 = *root;
 	while (tmp1)
 	{
 		if (ft_strcmp(tmp1->name, room1) == 0)
@@ -66,12 +66,12 @@ t_bool	connect_room(t_graph *root, char *room1, char *room2)
 	}
 	if (!tmp2 || !tmp1)
 		return (FALSE);
-	tmp1->tab = tabadd(tmp1->tab, tmp2);
-	tmp2->tab = tabadd(tmp2->tab, tmp1);
+	tabadd(tmp1, tmp2);
+	tabadd(tmp2, tmp1);
 	return (TRUE);
 }
 
-void	make_connection(t_graph *root, char *save)
+void	make_connection(t_graph **root, char *save)
 {
 	char	**sp;
 	t_node	stat;
@@ -82,10 +82,10 @@ void	make_connection(t_graph *root, char *save)
 		free(save);
 		if (ft_tablen(sp) != 2 || connect_room(root, sp[0], sp[1]) == FALSE)
 		{
-			ft_tabdel(&sp);
+			sp = ft_tabdel(sp);
 			return ;
 		}
-		ft_tabdel(&sp);
+		sp = ft_tabdel(sp);
 		read_line(&save, 0, &stat);
 		if (!save)
 			break ;
@@ -102,18 +102,17 @@ void	parse_entry(t_graph	**root)
 	*root = tmp = tmp2 = NULL;
 	while (42)
 	{
-		if (!(tmp2 = parse_room(save)))
+		if (!(tmp2 = parse_room(&save)))
 			break ;
 		if (!*root)
-		{
-			*root = tmp2;
-			tmp = *root;
-		}
+			*root = tmp = tmp2;
 		else
+		{
 			tmp->list = tmp2;
-		tmp = tmp->list;
+			tmp = tmp->list;
+		}
 	}
 	if (check_room(*root) == FALSE || !save)
 		exit_error(*root);
-	make_connection(*root, save);
+	make_connection(root, save);
 }

@@ -23,8 +23,8 @@ void	read_line(char **buf, int ret, t_node *stat)
 		}
 		if (*buf && *buf[0] && *buf[0] == '#')
 		{
-			*stat = (ft_strcmp(*buf, "##end") == 0) ? END : NORMAL;
-			*stat = (ft_strcmp(*buf, "##start") == 0) ? START : NORMAL;
+			*stat = (ft_strcmp(*buf, "##end") == 0) ? END : *stat;
+			*stat = (ft_strcmp(*buf, "##start") == 0) ? START : *stat;
 			continue ;
 		}
 		break ;
