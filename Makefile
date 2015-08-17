@@ -6,7 +6,7 @@
 #    By: aeddi <aeddi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/12/14 16:00:35 by aeddi             #+#    #+#              #
-#    Updated: 2014/03/09 20:28:29 by aeddi            ###   ########.fr        #
+#    Updated: 2015/08/17 11:58:59 by plastic          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,9 @@ NAME			=	lem-in
 CC				=	gcc
 GDB				?=	0
 ifeq ($(GDB), 1)
-	CFLAGS		=	-Wall -Wextra -Werror -g3 -I $(LIBFT_DIR) -I $(INCS_DIR)
+	CFLAGS		=	-Wall -Wextra -Werror -g3 -I $(LIBFT_DIR)/includes -I $(INCS_DIR)
 else
-	CFLAGS		=	-Wall -Wextra -Werror -O3 -I $(LIBFT_DIR) -I $(INCS_DIR)
+	CFLAGS		=	-Wall -Wextra -Werror -I $(LIBFT_DIR)/includes -I $(INCS_DIR)
 endif
 LFLAGS			=	-L $(LIBFT_DIR) -lft
 LIBFT_DIR		=	./libft
@@ -30,7 +30,8 @@ SRCS			=	main.c						\
 					malloc_struct.c				\
 					parse_entry.c				\
 					read_line.c					\
-					ft_tabdel.c
+					ft_tabdel.c					\
+					display.c
 
 all				:	$(NAME)
 

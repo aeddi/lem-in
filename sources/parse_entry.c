@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_entry.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeddi <aeddi@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2014/03/23 20:35:29 by aeddi             #+#    #+#             */
+/*   Updated: 2015/08/17 01:30:30 by plastic          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <lem-in.h>
 #include <libft.h>
 
@@ -32,8 +44,8 @@ t_graph	*parse_room(char **save)
 	if (*save)
 	{
 		sp = ft_strsplit(*save, ' ');
-		if (ft_tablen(sp) != 3 || check_num(sp[1]) == FALSE
-			|| check_num(sp[2]) == FALSE || ft_strchr(sp[0], '-'))
+		if (ft_tablen(sp) != 3 || ft_strchr(sp[0], '-')
+			|| check_num(sp[1]) == FALSE || check_num(sp[2]) == FALSE)
 		{
 			sp = ft_tabdel(sp);
 			return (NULL);
@@ -80,6 +92,7 @@ void	make_connection(t_graph **root, char *save)
 	{
 		sp = ft_strsplit(save, '-');
 		free(save);
+		save = NULL;
 		if (ft_tablen(sp) != 2 || connect_room(root, sp[0], sp[1]) == FALSE)
 		{
 			sp = ft_tabdel(sp);

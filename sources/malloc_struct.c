@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   malloc_struct.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeddi <aeddi@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2014/03/23 19:11:56 by aeddi             #+#    #+#             */
+/*   Updated: 2015/08/17 02:43:52 by plastic          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include <lem-in.h>
 
@@ -13,6 +25,17 @@ t_graph	*new_node(t_node type, char *name, long long x_coor, long long y_coor)
 	new->taken = FALSE;
 	new->list = NULL;
 	new->tab = NULL;
+	return (new);
+}
+
+t_wlst	*new_wlst(size_t len, char *way)
+{
+	t_wlst	*new;
+
+	new = (t_wlst *)malloc(sizeof(t_wlst));
+	new->len = len;
+	new->way = way;
+	new->next = NULL;
 	return (new);
 }
 
@@ -47,5 +70,5 @@ void	tabadd(t_graph *tab, t_graph *entry)
 	}
 	new[i] = entry;
 	new[i + 1] = NULL;
-	tab->tab = new;;
+	tab->tab = new;
 }

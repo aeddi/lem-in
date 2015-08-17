@@ -1,76 +1,87 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   calc_process.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aeddi <aeddi@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2014/03/23 18:08:07 by aeddi             #+#    #+#             */
+/*   Updated: 2015/08/17 02:42:40 by plastic          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <lem-in.h>
 #include <libft.h>
 
-void	display_pipe(t_graph *root)
+void	add_way(t_wlst **root, char *way, size_t len)
+{
+	t_wlst	*tmp;
+
+	tmp = *root;
+	if (*root == NULL)
+		*root = new_wlst(len, way);
+	else
+	{
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new_wlst(len, way);
+	}
+}
+
+void	find_way(t_graph *node, t_wlst **root, char *way, size_t depth)
 {
 	size_t	i;
-	t_graph	*tmp;
+	char	*n_way;
 
 	i = 0;
-	tmp = root;
-	while (tmp)
+	node->taken = TRUE;
+	n_way = (way) ? ft_strjoin_tw(way, " ", node->name) : node->name;
+	if (node->type == END)
+		add_way(root, n_way, depth);
+	else
 	{
-		while (tmp->tab[i])
+		while (node->tab && node->tab[i])
 		{
-			if (tmp->tab[i]->taken == 0)
-			{
-				ft_putstr(tmp->name);
-				ft_putchar('-');
-				ft_putendl(tmp->tab[i]->name);
-			}
+			if (node->tab[i]->taken == FALSE)
+				find_way(node->tab[i], root, n_way, depth + 1);
 			i++;
 		}
-		tmp->taken = 1;
-		tmp = tmp->list;
+		if (way)
+			free(n_way);
 	}
+	node->taken = FALSE;
 }
 
-void	display_map(t_graph *root, size_t f_nb)
+t_wlst	*choose_way(t_graph *root)
 {
-	t_graph	*tmp;
+	t_wlst	*w_root;
 
-	ft_putnbr(f_nb);
-	ft_putchar('\n');
-	tmp = root;
+	w_root = NULL;
+	while (root->type != START)
+		root = root->list;
+	find_way(root, &w_root, NULL, 1);
+	return (w_root);
+}
+
+void	calc_process(t_graph *root, size_t ant_nb)
+{
+	t_wlst	*way;
+	t_wlst	*tmp;
+	t_wlst	*best_way;
+
+	best_way = tmp = way = choose_way(root);
+	display_map(root, ant_nb);
+	if (!way)
+	{
+		ft_putendl("No existing path");
+		free_graph(root);
+		exit(0);
+	}
 	while (tmp)
 	{
-		if (tmp->type == START)
-			ft_putendl("##start");
-		if (tmp->type == END)
-			ft_putendl("##end");
-		ft_putstr(tmp->name);
-		ft_putchar(' ');
-		ft_putnbr(tmp->x_coor);
-		ft_putchar(' ');
-		ft_putnbr(tmp->y_coor);
-		ft_putchar('\n');
-		tmp = tmp->list;
+		best_way = (best_way->len <= tmp->len) ? best_way : tmp;
+		tmp = tmp->next;
 	}
-	display_pipe(root);
-	ft_putchar('\n');
-}
-
-void	display_run(size_t f_n, char *room)
-{
-	ft_putchar('L');
-	ft_putnbr(f_n);
-	ft_putchar('-');
-	ft_putstr(room);
-}
-
-void	calc_process(t_graph *root, size_t f_nb, size_t i)
-{
-	/*
-	char	**way;
-
-	way = choose_way(root)
-	*/
-	display_map(root, f_nb);
-i = 0;
-i++;
-	/*
-	while (i)
-	{
-	}
-	*/
+	display_result(best_way, ant_nb);
+	free_wlst(way);
 }
