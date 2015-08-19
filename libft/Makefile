@@ -6,7 +6,7 @@
 #    By: aeddi <aeddi@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/22 12:06:57 by aeddi             #+#    #+#              #
-#    Updated: 2015/08/14 12:17:15 by plastic          ###   ########.fr        #
+#    Updated: 2015/08/17 10:58:36 by aeddi            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,10 +35,10 @@ SRCS			=	ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c			\
 					ft_putnbr_fd.c ft_lstnew.c ft_lstdelone.c ft_lstdel.c	\
 					ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_rotx.c			\
 					ft_revstr.c get_next_line.c get_next_line_mfd.c			\
-					ft_abs.c ft_tabdel.c ft_tablen.c dlst_new.c				\
+					ft_abs.c ft_tablen.c dlst_new.c ft_revint64.c			\
 					dlst_add_head.c dlst_add_tail.c	dlst_del.c				\
 					ft_strreplace.c ft_strcount.c ft_strjoin_tw.c			\
-					ft_isspace.c ft_skip_space.c ft_revint32.c ft_revint64.c
+					ft_isspace.c ft_skip_space.c ft_revint32.c
 
 all				:	$(NAME)
 

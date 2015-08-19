@@ -6,7 +6,7 @@
 /*   By: aeddi <aeddi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/23 19:12:09 by aeddi             #+#    #+#             */
-/*   Updated: 2015/08/17 02:43:09 by plastic          ###   ########.fr       */
+/*   Updated: 2015/08/19 15:07:55 by aeddi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,31 @@ t_bool	check_num(char *buf)
 	return (TRUE);
 }
 
-int				main(void)
+int		main(void)
 {
 	t_graph	*root;
 	t_node	stat;
 	size_t	ant_nb;
-	char	*buf;
+	char	*total;
 
-	buf = NULL;
-	read_line(&buf, 0, &stat);
-	if (buf && stat == NORMAL && check_num(buf) == TRUE && ft_atoi(buf) >= 0)
+	total = NULL;
+	ant_nb = 0;
+	read_line(&total, 0, &stat, NULL);
+	if (total)
 	{
-		ant_nb = ft_atoi(buf);
-		free(buf);
+		if (stat == NORMAL && check_num(total) == TRUE && ft_atoi(total) > 0)
+			ant_nb = ft_atoi(total);
+		else
+		{
+			free(total);
+			exit_error(NULL);
+		}
+		parse_entry(&root, &total);
+		ft_putendl(total);
+		free(total);
+		calc_process(root, ant_nb);
+		free_graph(root);
+		return (0);
 	}
-	else
-		exit_error(NULL);
-	if (ant_nb <= 0)
-		exit_error(NULL);
-	parse_entry(&root);
-	calc_process(root, ant_nb);
-	free_graph(root);
-	return (0);
+	exit_error(NULL);
 }

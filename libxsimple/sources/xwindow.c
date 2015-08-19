@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   xwindow.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plastic </var/spool/mail/plastic>          +#+  +:+       +#+        */
+/*   By: aeddi <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/08/17 01:20:52 by plastic           #+#    #+#             */
-/*   Updated: 2015/08/17 01:41:35 by plastic          ###   ########.fr       */
+/*   Created: 2015/08/19 14:24:21 by aeddi             #+#    #+#             */
+/*   Updated: 2015/08/19 15:26:17 by aeddi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	clear_window(t_xdata *data)
 
 void	set_background_color(t_xdata *data, int r, int g, int b)
 {
-	XColor color;
-	XSetWindowAttributes attr;
+	XColor					color;
+	XSetWindowAttributes	attr;
 
 	color.pixel = 0;
 	color.red = r << 8;

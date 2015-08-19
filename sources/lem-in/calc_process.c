@@ -6,7 +6,7 @@
 /*   By: aeddi <aeddi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/23 18:08:07 by aeddi             #+#    #+#             */
-/*   Updated: 2015/08/17 02:42:40 by plastic          ###   ########.fr       */
+/*   Updated: 2015/08/19 15:08:28 by aeddi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,9 @@ void	calc_process(t_graph *root, size_t ant_nb)
 	t_wlst	*tmp;
 	t_wlst	*best_way;
 
-	best_way = tmp = way = choose_way(root);
-	display_map(root, ant_nb);
+	way = choose_way(root);
+	best_way = way;
+	tmp = way;
 	if (!way)
 	{
 		ft_putendl("No existing path");

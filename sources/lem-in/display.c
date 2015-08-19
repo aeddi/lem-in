@@ -6,7 +6,7 @@
 /*   By: aeddi <aeddi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/23 18:08:32 by aeddi             #+#    #+#             */
-/*   Updated: 2015/08/17 11:59:13 by plastic          ###   ########.fr       */
+/*   Updated: 2015/08/19 13:56:32 by plastic          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	display_pipe(t_graph *root)
 		if (tmp->tab)
 		{
 			i = 0;
-			while (tmp->tab[i])
+			while (tmp->tab && tmp->tab[i])
 			{
 				if (tmp->tab[i]->taken == 0)
 				{
@@ -38,31 +38,6 @@ void	display_pipe(t_graph *root)
 		tmp->taken = 1;
 		tmp = tmp->list;
 	}
-}
-
-void	display_map(t_graph *root, size_t ant_nb)
-{
-	t_graph	*tmp;
-
-	ft_putnbr(ant_nb);
-	ft_putchar('\n');
-	tmp = root;
-	while (tmp)
-	{
-		if (tmp->type == START)
-			ft_putendl("##start");
-		if (tmp->type == END)
-			ft_putendl("##end");
-		ft_putstr(tmp->name);
-		ft_putchar(' ');
-		ft_putnbr(tmp->x_coor);
-		ft_putchar(' ');
-		ft_putnbr(tmp->y_coor);
-		ft_putchar('\n');
-		tmp = tmp->list;
-	}
-	display_pipe(root);
-	ft_putchar('\n');
 }
 
 void	display_run(size_t ant_n, char *room)

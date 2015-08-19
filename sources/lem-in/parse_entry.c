@@ -6,7 +6,7 @@
 /*   By: aeddi <aeddi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/23 20:35:29 by aeddi             #+#    #+#             */
-/*   Updated: 2015/08/17 01:30:30 by plastic          ###   ########.fr       */
+/*   Updated: 2015/08/19 15:10:38 by aeddi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ t_bool	check_room(t_graph *root)
 	t_graph	*tmp;
 
 	tmp = root;
-	check_end = check_start = 0;
+	check_end = 0;
+	check_start = 0;
 	while (tmp)
 	{
 		if (tmp->type == END)
@@ -34,13 +35,13 @@ t_bool	check_room(t_graph *root)
 	return (FALSE);
 }
 
-t_graph	*parse_room(char **save)
+t_graph	*parse_room(char **save, char **total)
 {
 	t_node	stat;
 	t_graph	*ret;
 	char	**sp;
 
-	read_line(save, 0, &stat);
+	read_line(save, 0, &stat, total);
 	if (*save)
 	{
 		sp = ft_strsplit(*save, ' ');
@@ -63,7 +64,8 @@ t_bool	connect_room(t_graph **root, char *room1, char *room2)
 	t_graph	*tmp1;
 	t_graph	*tmp2;
 
-	tmp1 = tmp2 = *root;
+	tmp1 = *root;
+	tmp2 = tmp1;
 	while (tmp1)
 	{
 		if (ft_strcmp(tmp1->name, room1) == 0)
@@ -83,10 +85,11 @@ t_bool	connect_room(t_graph **root, char *room1, char *room2)
 	return (TRUE);
 }
 
-void	make_connection(t_graph **root, char *save)
+void	make_connection(t_graph **root, char *save, char **total)
 {
 	char	**sp;
 	t_node	stat;
+	char	*tmp;
 
 	while (42)
 	{
@@ -99,26 +102,35 @@ void	make_connection(t_graph **root, char *save)
 			return ;
 		}
 		sp = ft_tabdel(sp);
-		read_line(&save, 0, &stat);
+		read_line(&save, 0, &stat, total);
 		if (!save)
+		{
+			tmp = *total;
+			*total = ft_strjoin(*total, "\n");
+			free(tmp);
 			break ;
+		}
 	}
 }
 
-void	parse_entry(t_graph	**root)
+void	parse_entry(t_graph **root, char **total)
 {
 	t_graph	*tmp;
 	t_graph	*tmp2;
 	char	*save;
 
 	save = NULL;
-	*root = tmp = tmp2 = NULL;
+	*root = NULL;
+	tmp = NULL;
 	while (42)
 	{
-		if (!(tmp2 = parse_room(&save)))
+		if (!(tmp2 = parse_room(&save, total)))
 			break ;
 		if (!*root)
-			*root = tmp = tmp2;
+		{
+			*root = tmp2;
+			tmp = tmp2;
+		}
 		else
 		{
 			tmp->list = tmp2;
@@ -127,5 +139,5 @@ void	parse_entry(t_graph	**root)
 	}
 	if (check_room(*root) == FALSE || !save)
 		exit_error(*root);
-	make_connection(root, save);
+	make_connection(root, save, total);
 }
